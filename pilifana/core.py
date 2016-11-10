@@ -1,9 +1,12 @@
 import schedule
 import time
-
+import clients.pilight
+import conversion.structure
 
 def job():
-    print("Running")
+    client = clients.pilight.PilightClient('192.168.0.155:5001')
+    flattener = conversion.structure.Flattener()
+    print(flattener.flatten(client.get()))
 
 
 def run(interval):
