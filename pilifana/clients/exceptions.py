@@ -3,12 +3,9 @@ class PilightConnectionError(Exception):
 
     Attributes:
         msg      -- explanation of the error
-        code     -- status code of the response
         response -- body of the response
     """
-    def __init__(self, msg, code, response):
-        self.response = response
-        self.code = code
+    def __init__(self, msg):
         self.msg = msg
 
 
@@ -46,12 +43,8 @@ class KairosConnectionError(Exception):
 
     Attributes:
         msg      -- explanation of the error
-        code     -- status code of the response
-        response -- body of the response
     """
-    def __init__(self, msg, code, response):
-        self.response = response
-        self.code = code
+    def __init__(self, msg):
         self.msg = msg
 
 

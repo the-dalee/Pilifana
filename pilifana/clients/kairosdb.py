@@ -20,9 +20,11 @@ class KairosdbClient:
             response = connection.getresponse()
             resp_body = response.read().decode()
             if 400 <= response.code < 500:
-                raise KairosClientError('Request rejected by pilight server', response.code, resp_body)
+                raise KairosClientError('Request rejected by Kairos database', response.code, resp_body)
             elif 500 <= response.code < 600:
-                raise KairosClientError('Connection to pilight server failed', response.code, resp_body)
+                raise KairosClientError('Connection to Kairos database failed', response.code, resp_body)
             print(json.dumps(body))
+        except ConnectionError as e:
+            raise KairosConnectionError("Unable to connect to Kairos database: " + str(e))
         finally:
             connection.close()

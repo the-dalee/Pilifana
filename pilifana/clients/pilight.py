@@ -1,5 +1,5 @@
 from http.client import HTTPConnection, HTTPSConnection
-from clients.exceptions import PilightClientError, PilightServerError
+from clients.exceptions import PilightClientError, PilightServerError, PilightConnectionError
 import json
 
 class PilightClient:
@@ -26,6 +26,8 @@ class PilightClient:
             elif 500 <= response.code < 600:
                 raise PilightClientError('Connection to pilight server failed', response.code, body)
             else:
-                return self.__process_response(body) 
+                return self.__process_response(body)
+        except ConnectionError as e:
+            raise PilightConnectionError("Unable to connect to pilight server: " + str(e))
         finally:
             connection.close()
