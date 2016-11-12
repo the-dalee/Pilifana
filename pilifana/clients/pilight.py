@@ -1,5 +1,5 @@
 from http.client import HTTPConnection, HTTPSConnection
-from clients.exceptions import PilightClientError, PilightServerError, PilightConnectionError
+from pilifana.clients.exceptions import PilightClientError, PilightServerError, PilightConnectionError
 import json
 
 class PilightClient:

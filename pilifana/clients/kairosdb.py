@@ -1,5 +1,5 @@
 from http.client import HTTPConnection, HTTPSConnection
-from clients.exceptions import KairosClientError, KairosServerError
+from pilifana.clients.exceptions import KairosClientError, KairosServerError, KairosConnectionError
 import json
 import time
 
@@ -22,7 +22,7 @@ class KairosdbClient:
             if 400 <= response.code < 500:
                 raise KairosClientError('Request rejected by Kairos database', response.code, resp_body)
             elif 500 <= response.code < 600:
-                raise KairosClientError('Connection to Kairos database failed', response.code, resp_body)
+                raise KairosServerError('Connection to Kairos database failed', response.code, resp_body)
             print(json.dumps(body))
         except ConnectionError as e:
             raise KairosConnectionError("Unable to connect to Kairos database: " + str(e))
