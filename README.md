@@ -32,3 +32,19 @@ $ pilifana
 ```
 
 Press `CTRL-C` to exit.
+
+
+## Configuration
+
+When installed Pilifana uses settings from your default configration directory 
+(usually `/etc/pilifana/config.yaml`). If the settings file could not be found, 
+the local configuration file `./configuration/config.yaml` will be used (useful 
+for development). If everything else fails, Pilifana will be started using default
+configuration. 
+
+You can overwrite the location of the used config file by starting Pilifana with 
+bcommand line parameter `--config`.
+
+```bash
+$ pilifana --config ./some-config-file.yaml
+```

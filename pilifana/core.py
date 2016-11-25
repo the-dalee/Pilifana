@@ -6,11 +6,15 @@ import pilifana.conversion.structure
 
 
 def job():
-    client = pilifana.clients.pilight.PilightClient('192.168.0.155:5001') 
-    kairos = pilifana.clients.kairosdb.KairosdbClient('127.0.0.1:8080')
+    client = pilifana.clients.pilight.PilightClient('127.0.0.1:5001')
+    kairos = pilifana.clients.kairosdb.KairosdbClient(
+      '127.0.0.1:9004',
+      username='user',
+      password='secret')
+
     flattener =  pilifana.conversion.structure.Flattener()
     data = flattener.flatten(client.get())
-    kairos.set(data)
+    kairos.set('pilifana', data)
 
 
 def run(interval):
