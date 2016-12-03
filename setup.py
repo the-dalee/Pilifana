@@ -10,7 +10,8 @@ packages = [
 
 dependencies = [
     'schedule',
-    'pypandoc'
+    'pypandoc',
+    'pyyaml'
 ]
 
 
@@ -39,6 +40,7 @@ setup(
     author_email='mail.dalee@gmail.com',
     packages=packages,
     install_requires=dependencies,
+    data_files=[('/etc/pilifana', ['configuration/config.yaml'])],
     entry_points = {
         'console_scripts': [
             'pilifana = pilifana.main:main',

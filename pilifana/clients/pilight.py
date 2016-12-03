@@ -1,13 +1,14 @@
 from http.client import HTTPConnection, HTTPSConnection
 from pilifana.clients.exceptions import PilightClientError, PilightServerError, PilightConnectionError
+from urllib.parse import urlparse
 from base64 import b64encode
 import json
 
 
 class PilightClient:
     def __init__(self, host, https=False, username=None, password=None):
-        self.host = host
-        self.https = https
+        self.host =  urlparse(host).netloc
+        self.https = host.startswith("https://")
         self.username = username
         self.password = password
 
@@ -38,7 +39,9 @@ class PilightClient:
                 raise PilightClientError('Connection to pilight server failed', response.code, body)
             else:
                 return self.__process_response(body)
+
         except ConnectionError as e:
             raise PilightConnectionError("Unable to connect to pilight server: " + str(e))
+
         finally:
             connection.close()

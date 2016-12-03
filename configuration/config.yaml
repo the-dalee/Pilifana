@@ -1,10 +1,11 @@
 pilifana:
   # Update intrerval in seconds
-  interval: 1
+  interval: 10
+  metric: pilifana
 services:
   pilight:
     host: http://127.0.0.1:5001
-    authentication: none
+    authentication: basic
     # Uncomment this line to enable authentication with Basic Auth
     # authentication: basic
     # username: user

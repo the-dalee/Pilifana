@@ -1,14 +1,15 @@
 from http.client import HTTPConnection, HTTPSConnection
 from pilifana.clients.exceptions import KairosClientError, KairosServerError, KairosConnectionError
+from urllib.parse import urlparse
 from base64 import b64encode
 import json
 import time
 
 
 class KairosdbClient:
-    def __init__(self, host, https=False, username=None, password=None):
-        self.host = host
-        self.https = https
+    def __init__(self, host, username=None, password=None):
+        self.host = urlparse(host).netloc
+        self.https = host.startswith("https://")
         self.username = username
         self.password = password
 
@@ -40,5 +41,6 @@ class KairosdbClient:
 
         except ConnectionError as e:
            raise KairosConnectionError("Unable to connect to Kairos database: " + str(e))
+
         finally:
             connection.close()
