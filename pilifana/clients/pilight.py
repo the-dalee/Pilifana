@@ -3,6 +3,7 @@ from pilifana.clients.exceptions import PilightClientError, PilightServerError, 
 from urllib.parse import urlparse
 from base64 import b64encode
 import json
+import logging
 
 
 class PilightClient:

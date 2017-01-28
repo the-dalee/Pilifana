@@ -3,6 +3,7 @@ import time
 import pilifana.clients.pilight
 import pilifana.clients.kairosdb
 import pilifana.conversion.structure
+import logging
 
 
 def job(config):
@@ -16,11 +17,11 @@ def job(config):
     kairos_password = config.get('services.kairosdb.password', env='PILIFANA_KAIROS_PASS') if kairos_auth else None
     metric = config.get('pilifana.metric', default='pilifana', env='PILIFANA_METRIC')
 
-    print('Connecting to pilight host {0} using authentication {1}'.format(pilight_host, pilight_auth))
+    logging.debug('Connecting to pilight host {0} using authentication {1}'.format(pilight_host, pilight_auth))
     client = pilifana.clients.pilight.PilightClient(pilight_host,
                                                     username=pilight_username,
                                                     password=pilight_password)
-    print('Connecting to kairos host {0} using authentication {1}'.format(kairos_host, kairos_auth))
+    logging.debug('Connecting to kairos host {0} using authentication {1}'.format(kairos_host, kairos_auth))
     kairos = pilifana.clients.kairosdb.KairosdbClient(kairos_host,
                                                       username=kairos_username,
                                                       password=kairos_password)
@@ -31,8 +32,9 @@ def job(config):
 
 
 def run(config):
+
     interval = int(config.get('pilifana.interval', default=1, env='PILIFANA_INTERVAL'))
-    print('Update interval: {0}'.format(interval))
+    logging.debug('Update interval: {0}'.format(interval))
     schedule.every(interval).seconds.do(job, config)
 
     while True:
@@ -40,7 +42,7 @@ def run(config):
             time.sleep(1)
             schedule.run_pending()
         except KeyboardInterrupt:
-            print('Closing Pilifana...')
+            logging.info('Closing Pilifana...')
             return 
         except Exception as e:
-            print(e)
+            logging.error(e)

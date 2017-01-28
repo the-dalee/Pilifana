@@ -2,6 +2,9 @@ pilifana:
   # Update intrerval in seconds
   interval: 10
   metric: pilifana
+logging:
+  format: "%(asctime)s [%(levelname)s] |==> %(message)s"
+  level: DEBUG
 services:
   pilight:
     host: http://127.0.0.1:5001

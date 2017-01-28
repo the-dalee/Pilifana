@@ -4,6 +4,7 @@ from urllib.parse import urlparse
 from base64 import b64encode
 import json
 import time
+import logging
 
 
 class KairosdbClient:
@@ -36,8 +37,8 @@ class KairosdbClient:
             elif 500 <= response.code < 600:
                 raise KairosServerError('Connection to Kairos database failed', response.code, resp_body)
 
-            print("Update sent")
-            print(json.dumps(body))
+            logging.debug("Update sent")
+            logging.debug(json.dumps(body))
 
         except ConnectionError as e:
            raise KairosConnectionError("Unable to connect to Kairos database: " + str(e))
