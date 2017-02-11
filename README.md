@@ -33,6 +33,35 @@ $ pilifana
 
 Press `CTRL-C` to exit.
 
+### From Docker container
+
+Use `docker run thedalee/pilifana` (if you built it on your own) to run the container. As the configuration file is inside of the container, you may want to configure Pilifana using following environment variables:
+
+|Name|Type|Example|Meaning|
+|----|----|-------|-------|
+PILIFANA_PILIGHT_HOST|URL|http://127.0.0.1:5001/|Host and port of your Pilight|
+PILIFANA_PILIGHT_AUTH|['basic', 'none']|basic|Type of HTTP authentication for Pilight. 'basic': use HTTP Basic Auth, 'none': don't use authentication|
+PILIFANA_PILIGHT_USER|String|user|Pilight username. Remove if your Pilight is not protected by Basic Auth|
+PILIFANA_PILIGHT_PASS|String|secret|Pilight password. Remove if your Pilight is not protected by Basic Auth|
+PILIFANA_KAIROS_HOST|URL|http://127.0.0.1:8080/|Host and port or your KairosDB|
+PILIFANA_KAIROS_AUTH|['basic', 'none']|basic|Type of HTTP authentication for KairosDB. 'basic': use HTTP Basic Auth, 'none': don't use authentication|
+PILIFANA_KAIROS_USER|String|user|KairosDB username. Remove if your KairosDB is not protected by Basic Auth|
+PILIFANA_KAIROS_PASS|String|secret|KairosDB password. Remove if your KairosDB is not protected by Basic Auth|
+PILIFANA_METRIC|String|pilifana|Name of the KairosDB metric. Default: pilifana|
+
+#### Example
+```sh
+docker run -e PILIFANA_PILIGHT_HOST=http://127.0.0.1:5001/ \
+           -e PILIFANA_PILIGHT_AUTH=basic \
+           -e PILIFANA_PILIGHT_USER=user \
+           -e PILIFANA_PILIGHT_PASS=secret \
+           -e PILIFANA_KAIROS_HOST=http://127.0.0.1:8080/ \
+           -e PILIFANA_KAIROS_AUTH=basic \
+           -e PILIFANA_KAIROS_USER=user \
+           -e PILIFANA_KAIROS_PASS=secret \
+           -e PILIFANA_METRIC=pilifana \
+           thedalee/pilifana
+``` 
 
 ## Configuration
 
