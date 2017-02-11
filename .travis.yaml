@@ -1,0 +1,17 @@
+language: python
+
+before-build: 
+  - python3 -m unittest
+
+build:
+  - docker build .
+
+  # Push docker image when building master or develop
+  - 'if [ "$TRAVIS_BRANCH" = "master" ]; then export DOCKER_TAG=stable; fi'
+  - 'if [ "$TRAVIS_BRANCH" = "develop" ]; then export DOCKER_TAG=latest; fi'
+  - 'if [ -z "$TRAVIS_TAG" ]; then export DOCKER_TAG=$TRAVIS_TAG; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then docker login -u "$DOCKER_USERNAME"  -p "$DOCKER_PASSWORD"; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then docker push thedalee/pilifana:$DOCKER_TAG; fi'
+
+
+  
