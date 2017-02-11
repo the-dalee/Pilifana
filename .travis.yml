@@ -14,14 +14,18 @@ branches:
     - develop
 
 script:
-  - docker build .
+  # Build docker image 
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then docker build .; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then docker build . -t thedalee/pilifana:stable; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "develop" ]; then docker build . -t thedalee/pilifana:latest; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_TAG" ]; then docker build . -t thedalee/pilifana:$TRAVIS_TAG; fi'
 
   # Push docker image when building master or develop
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then echo "Building branch $TRAVIS_BRANCH"; fi'
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then docker login -u "$DOCKER_USERNAME"  -p "$DOCKER_PASSWORD"; fi'
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then docker push thedalee/pilifana:stable; fi'
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "develop" ]; then docker push thedalee/pilifana:latest; fi'
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ -z "$TRAVIS_TAG" ]; then docker push thedalee/pilifana:$TRAVIS_TAG; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_TAG" ]; then docker push thedalee/pilifana:$TRAVIS_TAG; fi'
 
 
   
