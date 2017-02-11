@@ -11,7 +11,7 @@ def job(config):
     pilight_auth = config.get('services.pilight.authentication', env='PILIFANA_PILIGHT_AUTH', default='none') == "basic"
     pilight_username = config.get('services.pilight.username', env='PILIFANA_PILIGHT_USER') if pilight_auth else None
     pilight_password = config.get('services.pilight.password', env='PILIFANA_PILIGHT_PASS') if pilight_auth else None
-    kairos_host = config.get('services.kairosdb.host', default="http://127.0.0.1:9004", env='PILIFANA_PILIGHT_HOST')
+    kairos_host = config.get('services.kairosdb.host', default="http://127.0.0.1:9004", env='PILIFANA_KAIROS_HOST')
     kairos_auth = config.get('services.kairosdb.authentication', env='PILIFANA_KAIROS_AUTH', default='none') == "basic"
     kairos_username = config.get('services.kairosdb.username', env='PILIFANA_KAIROS_USER') if kairos_auth else None
     kairos_password = config.get('services.kairosdb.password', env='PILIFANA_KAIROS_PASS') if kairos_auth else None
