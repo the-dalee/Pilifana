@@ -15,7 +15,7 @@ branches:
 
 script:
   # Build docker image 
-  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then docker build . fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then docker build .; fi'
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then docker build . -t thedalee/pilifana:stable; fi'
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "develop" ]; then docker build . -t thedalee/pilifana:latest; fi'
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_TAG" ]; then docker build . -t thedalee/pilifana:$TRAVIS_TAG; fi'
