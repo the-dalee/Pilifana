@@ -17,7 +17,7 @@ script:
   - docker build .
 
   # Push docker image when building master or develop
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ] then echo "Building branch $TRAVIS_BRANCH"; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then echo "Building branch $TRAVIS_BRANCH"; fi'
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then docker login -u "$DOCKER_USERNAME"  -p "$DOCKER_PASSWORD"; fi'
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then docker push thedalee/pilifana:stable; fi'
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "develop" ]; then docker push thedalee/pilifana:latest; fi'
