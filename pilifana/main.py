@@ -16,8 +16,8 @@ def main(devmode=False):
             configfile = "/etc/pilifana/config.yaml"
     config = ConfigWrapper(configfile)
 
-    logformat = config.get('logging.format', 
-                           default="%(asctime)s [%(levelname)s] |==> %(message)s", 
+    logformat = config.get('logging.format',
+                           default="%(asctime)s [%(levelname)s] |==> %(message)s",
                            env='PILIFANA_LOGGING_FORMAT')
 
     loglevelconf = config.get('logging.level',

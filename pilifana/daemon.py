@@ -10,12 +10,12 @@ def start():
     config = ConfigWrapper('/etc/pilifana/config.yaml')
 
     format = config.get('logging.format',
-                         default="%(asctime)s [%(levelname)s] |==> %(message)s",
-                         env='PILIFANA_LOGGING_FORMAT')
+                        default="%(asctime)s [%(levelname)s] |==> %(message)s",
+                        env='PILIFANA_LOGGING_FORMAT')
 
     level = config.get('logging.level',
-                        default="DEBUG",
-                        env='PILIFANA_LOGGING_LEVEL')
+                       default="DEBUG",
+                       env='PILIFANA_LOGGING_LEVEL')
 
     pid = "/var/run/pilifana.pid"
 

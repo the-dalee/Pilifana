@@ -29,16 +29,19 @@ def job(config):
                                                       username=kairos_username,
                                                       password=kairos_password)
 
-    flattener =  pilifana.conversion.structure.Flattener()
+    flattener = pilifana.conversion.structure.Flattener()
     data = flattener.flatten(client.get())
     kairos.set(metric, data)
+
 
 def sigterm(signum, frame):
     close()
 
+
 def close():
     logging.info('Closing Pilifana')
     exit(0)
+
 
 def run(config):
     logging.info('Starting Pilifana with PID {}'.format(os.getpid()))
@@ -56,6 +59,6 @@ def run(config):
             schedule.run_pending()
         except KeyboardInterrupt:
             close()
-            return 
+            return
         except Exception as e:
             logging.error(e)
