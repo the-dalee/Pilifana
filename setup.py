@@ -11,7 +11,8 @@ packages = [
 dependencies = [
     'schedule',
     'pypandoc',
-    'pyyaml'
+    'pyyaml',
+    'daemonize'
 ]
 
 
@@ -32,7 +33,7 @@ def convert_markdown(file):
 
 setup(
     name='pilifana',
-    version='0.1',
+    version='0.2.dev1',
     license='MIT',
     description='Send values of pilight devices to KairosDB for use on Grafana dashboards',
     long_description=convert_markdown('README.md'),
@@ -44,6 +45,7 @@ setup(
     entry_points = {
         'console_scripts': [
             'pilifana = pilifana.main:main',
+            'pilifanad = pilifana.daemon:start'
         ],
     },
 )

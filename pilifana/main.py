@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-from pilifana.core import run
-from pilifana.config import ConfigWrapper
-import os
 import logging
+import os
+
+from pilifana.config import ConfigWrapper
+from pilifana.conversion.loglevel import loglevel
+from pilifana.core import run
 
 
 def main(devmode=False):
@@ -22,15 +24,8 @@ def main(devmode=False):
                               default="DEBUG",
                               env='PILIFANA_LOGGING_LEVEL')
 
-    if loglevelconf == "DEBUG": loglevel = logging.DEBUG
-    elif loglevelconf == "INFO": loglevel = logging.INFO
-    elif loglevelconf == "WARNING": loglevel = logging.WARNING
-    elif loglevelconf == "ERROR": loglevel = logging.ERROR
-    elif loglevelconf == "CRITICAL": loglevel = logging.CRITICAL
-    else: loglevel = logging.NOTSET  
-
-    logging.basicConfig(format=logformat, level=loglevel)
-    logging.info("Starting using config {0}".format(configfile))
+    logging.basicConfig(format=logformat, level=loglevel(loglevelconf))
+    logging.info("Using config {0}".format(configfile))
     run(config)
 
 if __name__ == '__main__':

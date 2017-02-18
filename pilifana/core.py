@@ -1,9 +1,12 @@
-import schedule
-import time
-import pilifana.clients.pilight
-import pilifana.clients.kairosdb
-import pilifana.conversion.structure
 import logging
+import os
+import schedule
+import signal
+import time
+
+import pilifana.clients.kairosdb
+import pilifana.clients.pilight
+import pilifana.conversion.structure
 
 
 def job(config):
@@ -30,8 +33,18 @@ def job(config):
     data = flattener.flatten(client.get())
     kairos.set(metric, data)
 
+def sigterm(signum, frame):
+    close()
+
+def close():
+    logging.info('Closing Pilifana')
+    exit(0)
 
 def run(config):
+    logging.info('Starting Pilifana with PID {}'.format(os.getpid()))
+
+    signal.signal(signal.SIGTERM, sigterm)
+    signal.signal(signal.SIGINT, sigterm)
 
     interval = int(config.get('pilifana.interval', default=1, env='PILIFANA_INTERVAL'))
     logging.debug('Update interval: {0}'.format(interval))
@@ -42,7 +55,7 @@ def run(config):
             time.sleep(1)
             schedule.run_pending()
         except KeyboardInterrupt:
-            logging.info('Closing Pilifana...')
+            close()
             return 
         except Exception as e:
             logging.error(e)
