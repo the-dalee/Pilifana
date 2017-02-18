@@ -44,8 +44,7 @@ setup(
     data_files=[('/etc/pilifana', ['configuration/config.yaml'])],
     entry_points = {
         'console_scripts': [
-            'pilifana = pilifana.main:main',
-            'pilifanad = pilifana.daemon:start'
+            'pilifana = pilifana.main:main'
         ],
     },
 )
