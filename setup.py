@@ -11,9 +11,9 @@ packages = [
 dependencies = [
     'schedule',
     'pypandoc',
-    'pyyaml'
+    'pyyaml',
+    'daemonize'
 ]
-
 
 def convert_markdown(file):
     try:
@@ -29,10 +29,9 @@ def convert_markdown(file):
             long_description = f.read()
     return long_description
 
-
 setup(
     name='pilifana',
-    version='0.1',
+    version='1.0',
     license='MIT',
     description='Send values of pilight devices to KairosDB for use on Grafana dashboards',
     long_description=convert_markdown('README.md'),
@@ -43,7 +42,7 @@ setup(
     data_files=[('/etc/pilifana', ['configuration/config.yaml'])],
     entry_points = {
         'console_scripts': [
-            'pilifana = pilifana.main:main',
+            'pilifana = pilifana.main:main'
         ],
-    },
+    }
 )
