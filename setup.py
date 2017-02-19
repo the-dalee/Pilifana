@@ -15,7 +15,6 @@ dependencies = [
     'daemonize'
 ]
 
-
 def convert_markdown(file):
     try:
         import pypandoc
@@ -29,7 +28,6 @@ def convert_markdown(file):
         with io.open('README.md', encoding="utf-8") as f:
             long_description = f.read()
     return long_description
-
 
 setup(
     name='pilifana',
@@ -46,5 +44,5 @@ setup(
         'console_scripts': [
             'pilifana = pilifana.main:main'
         ],
-    },
+    }
 )

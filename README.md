@@ -22,6 +22,42 @@ Use pip3 to install Pilifana:
 $ sudo pip3 install .
 ```
 
+or install it with make:
+
+```
+$ sudo make install
+```
+
+### As daemon
+
+Use make to install pilifana as a daemon and register the rc script.
+
+```
+$ sudo make install-daemon
+```
+
+Pilifana will run on startup and you will be able to start and stop it from `/etc/init.d/pilifana`
+
+## Uninstalling
+
+Remove Pilifana with
+
+```
+$ sudo pip3 uninstall pilifana
+```
+
+or
+
+```
+$ sudo make uninstall
+```
+
+If you have installed Pilifana as a daemon, use following command first:
+
+```
+$ sudo make uninstall-daemon
+```
+
 ## Running
 
 ### As standalone application
