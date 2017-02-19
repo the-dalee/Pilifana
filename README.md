@@ -14,10 +14,48 @@ information refer to the
 
 ## Installation
 
+### As standalone application
+
 Use pip3 to install Pilifana:
 
 ```
 $ sudo pip3 install .
+```
+
+or install it with make:
+
+```
+$ sudo make install
+```
+
+### As daemon
+
+Use make to install pilifana as a daemon and register the rc script.
+
+```
+$ sudo make install-daemon
+```
+
+Pilifana will run on startup and you will be able to start and stop it from `/etc/init.d/pilifana`
+
+## Uninstalling
+
+Remove Pilifana with
+
+```
+$ sudo pip3 uninstall pilifana
+```
+
+or
+
+```
+$ sudo make uninstall
+```
+
+If you have installed Pilifana as a daemon, use following command first:
+
+```
+$ sudo make uninstall-daemon
 ```
 
 ## Running
@@ -32,6 +70,20 @@ $ pilifana
 ```
 
 Press `CTRL-C` to exit.
+
+### As daemon
+
+You can start Pilifana as daemon using `--daemon` flag. Pilifana will always use configuration file under `/etc/pilifana/config.yaml`
+and save its logs to `/var/log/pilifana.log` 
+
+Example:
+
+```
+$ pilifana --daemon
+```
+
+You can stop the deamon by sending a SIGINT or SIGTERM signal to the daemon process. The process ID can be found in the log or in the PID `/var/run/pilifana.pid`.
+
 
 ### From Docker container
 

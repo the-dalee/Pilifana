@@ -1,0 +1,55 @@
+#!/bin/sh
+#
+### BEGIN INIT INFO
+# Provides: pilifana
+# Required-Start:     $syslog $remote_fs
+# Required-Stop:      $syslog $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+### END INIT INFO
+# source function library
+
+RETVAL=0
+prog="pilifana"
+
+start() {
+	echo -n "Starting $prog"
+	pilifana --daemon
+    RETVAL=$?
+	[ "$RETVAL" = 0 ] && touch /var/lock/subsys/$prog
+	echo
+}
+
+stop() {
+	echo -n "Stopping $prog:"
+	PID=$(cat /var/run/pilifana.pid 2> /dev/null)
+	if [ $? = 0 ]; then kill $PID &> /dev/null; fi; 
+	RETVAL=$?
+	[ "$RETVAL" = 0 ] && rm -f /var/lock/subsys/$prog
+	echo
+}
+
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart)
+		stop
+		start
+		;;
+	reload)
+		echo "Error: argument '$1' not supported" >&2
+		RETVAL=3
+		;;
+	status)
+		status $prog
+		RETVAL=$?
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		RETVAL=1
+esac
+exit $RETVAL
