@@ -37,7 +37,7 @@ class KairosdbClient:
             elif 500 <= response.code < 600:
                 raise KairosServerError('Connection to Kairos database failed', response.code, resp_body)
 
-            logging.debug("Update sent")
+            logging.info("Update sent")
             logging.debug(json.dumps(body))
 
         except ConnectionError as e:

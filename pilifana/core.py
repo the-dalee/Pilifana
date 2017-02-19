@@ -50,7 +50,7 @@ def run(config):
     signal.signal(signal.SIGINT, sigterm)
 
     interval = int(config.get('pilifana.interval', default=1, env='PILIFANA_INTERVAL'))
-    logging.debug('Update interval: {0}'.format(interval))
+    logging.info('Update interval: {0}'.format(interval))
     schedule.every(interval).seconds.do(job, config)
 
     while True:
