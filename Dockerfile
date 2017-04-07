@@ -9,6 +9,7 @@ RUN cd /pilifana && \
     apt-get update && \
     apt-get -y install pandoc && \ 
     python3 --version && \
+    pip3 install --upgrade setuptools \
     pip3 install --upgrade .
 
 CMD [ "pilifana" ]
