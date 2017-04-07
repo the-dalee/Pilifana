@@ -1,4 +1,4 @@
-FROM python:3.5-slim
+FROM python:3.5
 ADD configuration /pilifana/configuration
 ADD pilifana /pilifana/pilifana
 ADD setup.py /pilifana
