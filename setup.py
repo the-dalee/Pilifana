@@ -31,7 +31,7 @@ def convert_markdown(file):
 
 setup(
     name='pilifana',
-    version='1.0',
+    version='1.0.1',
     license='MIT',
     description='Send values of pilight devices to KairosDB for use on Grafana dashboards',
     long_description=convert_markdown('README.md'),
