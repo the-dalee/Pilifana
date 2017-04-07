@@ -4,7 +4,8 @@ ADD pilifana /pilifana/pilifana
 ADD setup.py /pilifana
 ADD README.md /pilifana
 RUN apt-get update && \
-    apt-get -y install pandoc && \ 
-    pip3 install --upgrade /pilifana
+    apt-get -y install pandoc && \
+    cd /pilifana && \
+    python3 setup.py install
 
 CMD [ "pilifana" ]
