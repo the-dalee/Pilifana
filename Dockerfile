@@ -1,4 +1,4 @@
-FROM python:3.5
+FROM python:3.5-slim
 ADD configuration /pilifana/configuration
 ADD pilifana /pilifana/pilifana
 ADD setup.py /pilifana
@@ -9,7 +9,6 @@ RUN cd /pilifana && \
     apt-get update && \
     apt-get -y install pandoc && \ 
     python3 --version && \
-    pip3 install --upgrade setuptools \
-    pip3 install --upgrade .
+    python3 setup.py install
 
 CMD [ "pilifana" ]
